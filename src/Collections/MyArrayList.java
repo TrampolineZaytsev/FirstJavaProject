@@ -1,6 +1,7 @@
 package Collections;
 
-class MyArrayList<T> {
+import java.util.Random;
+public class MyArrayList<T> implements MyList<T> {
 
     private final int defCapacity = 10;
     private int size, capacity = defCapacity;
@@ -12,7 +13,7 @@ class MyArrayList<T> {
         arr = new Object[size];
     }
 
-    MyArrayList()
+    public MyArrayList()
     {
         size = 0;
         arr = new Object[capacity];
@@ -25,8 +26,23 @@ class MyArrayList<T> {
     public boolean isEmpty(){
         return size == 0;
     }
+
+   /* public boolean contains(T data){  /??????????????????????????????????????????????
+        for (int i = 0; i < size; i++){
+            if ((T)arr[i] == data) return true;
+        }
+        return false;
+    };*/
+   public boolean contains(Object obj){  //??????????????????????????????????????????????????????
+       for (int i = 0; i < size; i++){
+           if (arr[i].equals(obj)) return true;
+       }
+       return false;
+   };
+
     private void reCapacity() {
-        Object[] newArr = new Object[(int)(capacity*1.5)];
+        capacity *= 1.5;
+        Object[] newArr = new Object[(int)(capacity)];
         System.arraycopy(arr, 0, newArr, 0, size);
         arr = newArr;
     }
@@ -37,13 +53,21 @@ class MyArrayList<T> {
         return true;
     }
 
-    public void insert(int index, T data){
+    public void insert(T data, int index){
         if (size >= capacity) reCapacity();
         if (index < 0 || index >= size){
             throw new IndexOutOfBoundsException(index);
         }
         System.arraycopy(arr, index, arr, index+1, ++size-index);
         arr[index] = data;
+    }
+
+    public void insertBack(int indexFrom, int indexTo){
+        T temp = (T) arr[indexFrom];
+        for (int i = indexFrom; i > indexTo; i--){
+            arr[i] = arr[i-1];
+        }
+        arr[indexTo] = temp;
     }
 
     public T get(int index){
@@ -59,25 +83,24 @@ class MyArrayList<T> {
         arr[index] = data;
         return data;
     }
-    public void removeAt(int index) {
+    public T removeAt(int index) {
         if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException(index);
         System.arraycopy(arr, index+1, arr, index, (--size)-index+1);
+        return (T) arr[index];
     }
-    public int indexOf(T data){
+    public int indexOf(Object obj){
         for (int i = 0; i < size; i++){
-            if (arr[i] == data) return i;
+            if (arr[i].equals(obj)) return i;
         }
         return -1;
     }
 
-    public boolean remove(T data){
+    public boolean remove(Object obj){
         int count = 0, index;
-        do
-        {
-            index = indexOf(data);
-            if (index == -1)
-            {
+        do {
+            index = indexOf(obj);
+            if (index == -1) {
                 if (count == 0) return false;
                 return true;
             }
@@ -102,6 +125,7 @@ class MyArrayList<T> {
         }
         return sb.append(arr[size - 1]).append("]").toString();
     }
+
 
 
 }
