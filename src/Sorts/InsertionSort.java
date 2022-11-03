@@ -1,8 +1,8 @@
 package Sorts;
-import Collections.MyArrayList;
 import Collections.MyList;
-import Lab2.utils;
 
+import Collections.MyArrayList;
+import Lab2.utils;
 public class InsertionSort <T extends Comparable<T>> implements Sort<T> {
 
     private final MyList<T> arr;
@@ -24,6 +24,7 @@ public class InsertionSort <T extends Comparable<T>> implements Sort<T> {
             }
             arr.set(j + 1, key);
         }
+
     }
 
     //demonstrated running InsertionSort

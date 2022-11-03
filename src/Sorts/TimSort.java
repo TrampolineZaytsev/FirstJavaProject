@@ -42,7 +42,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     public void binInsert(int cur, int beg, int end) {
         while (end >= beg)
         {
-
             if (arr.get(cur).compareTo(arr.get((beg + end) / 2)) > 0)
             {
                 beg = (beg + end) / 2 + 1;
