@@ -10,8 +10,8 @@ import Collections.MyStack;
 public class TimSort <T extends Comparable<T>> implements Sort<T>
 {
     private final MyList<T> arr;
-    public TimSort (MyList<T> arrV ){
-        arr = arrV;
+    public TimSort (MyList<T> arr ){
+        this.arr = arr;
     }
     public static int getMinRun(int n)
     {

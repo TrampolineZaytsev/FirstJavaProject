@@ -1,5 +1,6 @@
 package Lab2;
 
+import Collections.MyArrayList;
 import Collections.MyList;
 import Sorts.Sort;
 
@@ -23,5 +24,11 @@ public class utils<T> {
         return end - start;
     }
 
+    public static MyList<MyList<Long>> creat2DLongArr(int size1, int size2){
+
+        MyList<MyList<Long>> arr = new MyArrayList<>(size1);
+        for (int i = 0; i < size1; i++) arr.set(i, new MyArrayList<>(size2));
+        return arr;
+    }
 
 }

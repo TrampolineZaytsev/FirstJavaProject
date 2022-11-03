@@ -7,7 +7,7 @@ public class MyArrayList<T> implements MyList<T> {
     private int size, capacity = defCapacity;
     private Object[] arr;
 
-    MyArrayList(int size)
+    public MyArrayList(int size)
     {
         this.size = size;
         arr = new Object[size];
