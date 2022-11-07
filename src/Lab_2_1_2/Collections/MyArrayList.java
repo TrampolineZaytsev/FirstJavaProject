@@ -1,6 +1,5 @@
-package Collections;
+package Lab_2_1_2.Collections;
 
-import java.util.Random;
 public class MyArrayList<T> implements MyList<T> {
 
     private final int defCapacity = 10;

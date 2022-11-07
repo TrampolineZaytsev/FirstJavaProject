@@ -1,8 +1,8 @@
-package Lab2;
+package Lab_2_1_2.Lab2;
 
-import Collections.MyArrayList;
-import Collections.MyList;
-import Sorts.Sort;
+import Lab_2_1_2.Collections.MyArrayList;
+import Lab_2_1_2.Collections.MyList;
+import Lab_2_1_2.Sorts.Sort;
 
 import java.util.Random;
 

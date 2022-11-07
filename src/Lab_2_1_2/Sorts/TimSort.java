@@ -1,10 +1,10 @@
-package Sorts;
+package Lab_2_1_2.Sorts;
 
 
-import Collections.MyArrayList;
-import Collections.MyLinkedList;
-import Collections.MyList;
-import Collections.MyStack;
+import Lab_2_1_2.Collections.MyArrayList;
+import Lab_2_1_2.Collections.MyLinkedList;
+import Lab_2_1_2.Collections.MyList;
+import Lab_2_1_2.Collections.MyStack;
 
 
 public class TimSort <T extends Comparable<T>> implements Sort<T>

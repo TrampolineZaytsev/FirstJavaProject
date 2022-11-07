@@ -1,8 +1,6 @@
-package Sorts;
-import Collections.MyList;
+package Lab_2_1_2.Sorts;
+import Lab_2_1_2.Collections.MyList;
 
-import Collections.MyArrayList;
-import Lab2.utils;
 public class InsertionSort <T extends Comparable<T>> implements Sort<T> {
 
     private final MyList<T> arr;

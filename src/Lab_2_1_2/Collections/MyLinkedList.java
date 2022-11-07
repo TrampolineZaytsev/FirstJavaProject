@@ -1,4 +1,4 @@
-package Collections;
+package Lab_2_1_2.Collections;
 import java.util.EmptyStackException;
 
 public class MyLinkedList<T> implements MyList<T>, MyStack<T> {

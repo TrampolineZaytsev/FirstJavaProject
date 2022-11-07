@@ -1,14 +1,12 @@
-package Lab2;
+package Lab_2_1_2.Lab2;
 
 
-import Collections.MyArrayList;
-import Collections.MyList;
-import Sorts.InsertionSort;
-import Sorts.MergeSort;
-import Sorts.Sort;
-import Sorts.TimSort;
-
-import java.util.Random;
+import Lab_2_1_2.Collections.MyArrayList;
+import Lab_2_1_2.Collections.MyList;
+import Lab_2_1_2.Sorts.InsertionSort;
+import Lab_2_1_2.Sorts.MergeSort;
+import Lab_2_1_2.Sorts.Sort;
+import Lab_2_1_2.Sorts.TimSort;
 
 public class Main {
     public static void main(String[] args) {

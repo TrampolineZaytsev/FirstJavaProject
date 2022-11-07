@@ -1,4 +1,4 @@
-package Collections;
+package Lab_2_1_2.Collections;
 
 public interface MyList<T> {
     int getSize();
