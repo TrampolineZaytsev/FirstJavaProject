@@ -1,7 +1,7 @@
 package Lab_2_1_2.Sorts;
 
-import Lab_2_1_2.Collections.MyArrayList;
-import Lab_2_1_2.Collections.MyList;
+import Collections.MyArrayList;
+import Collections.MyList;
 
 public class MergeSort <T extends Comparable<T>> implements Sort<T>{
 

@@ -1,5 +1,5 @@
 package Lab_2_1_2.Sorts;
-import Lab_2_1_2.Collections.MyList;
+import Collections.MyList;
 
 public class InsertionSort <T extends Comparable<T>> implements Sort<T> {
 

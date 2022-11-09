@@ -1,7 +1,7 @@
-package Lab_2_1_2.Collections;
+package Collections;
 import java.util.EmptyStackException;
 
-public class MyLinkedList<T> implements MyList<T>, MyStack<T> {
+public class MyLinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T> {
 
     private int size = 0;
     private Node<T> head;
@@ -30,6 +30,8 @@ public class MyLinkedList<T> implements MyList<T>, MyStack<T> {
     }
 
 
+
+
     public int getSize() {
         return 0;
     }
@@ -54,6 +56,10 @@ public class MyLinkedList<T> implements MyList<T>, MyStack<T> {
 
         size++;
         return true;
+    }
+
+    public T poll() {
+        return removeAt(0);
     }
 
     public void insert(T data, int index) {
@@ -213,7 +219,9 @@ public class MyLinkedList<T> implements MyList<T>, MyStack<T> {
         return sb.append(temp.value).append("]").toString();
     }
 
+//////////////////
 
+///////////////////////////////////////
     private static class Node<T> {
         Node<T> next;
         T value;

@@ -1,6 +1,11 @@
-package Lab_2_1_2.Collections;
+package Collections;
 
 public interface MyList<T> {
+
+
+
+
+
     int getSize();
 
     boolean isEmpty();

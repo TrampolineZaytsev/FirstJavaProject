@@ -1,8 +1,8 @@
 package Lab_2_1_2.Lab2;
 
 
-import Lab_2_1_2.Collections.MyArrayList;
-import Lab_2_1_2.Collections.MyList;
+import Collections.MyArrayList;
+import Collections.MyList;
 import Lab_2_1_2.Sorts.InsertionSort;
 import Lab_2_1_2.Sorts.MergeSort;
 import Lab_2_1_2.Sorts.Sort;
@@ -29,7 +29,7 @@ public class Main {
                 else sortingList = new InsertionSort<>(willSortList);
 
                 //add time sorts
-                if (i == 2 && l == 1000000)
+                if (i == 2 && l >= 1000000)
                     dataForGraph.get(i).set(choiceLen, (long) l);
 
                 else

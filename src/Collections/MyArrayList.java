@@ -1,4 +1,4 @@
-package Lab_2_1_2.Collections;
+package Collections;
 
 public class MyArrayList<T> implements MyList<T> {
 
