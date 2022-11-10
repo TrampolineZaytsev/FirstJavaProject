@@ -8,4 +8,6 @@ public interface MyStack<T>{
     T peek();
 
     boolean isEmpty();
+
+    //void copy(MyLinkedList<T> copyList);
 }

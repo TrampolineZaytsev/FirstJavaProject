@@ -4,6 +4,7 @@ import Collections.MyArrayList;
 import Collections.MyLinkedList;
 import Collections.MyQueue;
 import Collections.MyStack;
+import Lab_2_1_3.Node;
 
 public class TreeAVL <T extends Comparable<T>>{
     private NodeAVL<T> root = new NodeAVL<>(null);
@@ -144,6 +145,68 @@ public class TreeAVL <T extends Comparable<T>>{
             }
         }
 
+        return list;
+    }
+
+    public MyArrayList<T> contInOrder(){
+        MyStack<NodeAVL> stack  = new MyLinkedList<>();
+        MyArrayList<T> list = new MyArrayList<>();
+        NodeAVL<T> cur = root;
+        while (!stack.isEmpty() || cur != null){
+            if (!stack.isEmpty()){
+                cur = stack.pop();
+                list.add(cur.key);
+                if (cur.right != null) cur = cur.right;
+                else cur = null;
+            }
+            while (cur != null){
+                stack.push(cur);
+                cur = cur.left;
+            }
+        }
+
+        return list;
+    }
+
+    public MyArrayList<T> contPostOrder(){
+        MyStack<NodeAVL> stack  = new MyLinkedList<>();
+        MyArrayList<T> list = new MyArrayList<>();
+        NodeAVL<T> cur = root;
+        while (!stack.isEmpty() || cur != null){
+            if (!stack.isEmpty()){
+                cur = stack.pop();
+                if (!stack.isEmpty() && cur.right == stack.peek()){
+                    cur = stack.pop();
+                }
+                else {
+                    list.add(cur.key);
+                    cur = null;
+                }
+            }
+            while (cur != null){
+                stack.push(cur);
+                if(cur.right != null){
+                    stack.push(cur.right);
+                    stack.push(cur);
+                }
+                cur = cur.left;
+            }
+        }
+
+        return list;
+    }
+
+    private void doPreOrder(NodeAVL<T> cur,  MyArrayList<T> list) {
+        if (cur == null)
+            return;
+        list.add(cur.key);
+        doPreOrder(cur.left,  list);
+        doPreOrder(cur.right,  list);
+    }
+
+    public MyArrayList<T> preOrder() {
+        MyArrayList<T> list = new MyArrayList<>();
+        doPreOrder(root, list);
         return list;
     }
 }

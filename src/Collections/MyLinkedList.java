@@ -7,7 +7,12 @@ public class MyLinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T> {
     private Node<T> head;
 
 
+    /*public void copy(MyLinkedList<T> copyList){
 
+        for (int i = 0; i < copyList.size; i++){
+            this.push(copyList.get(i));
+        }
+    }*/
 
 
     public T push(T item) {

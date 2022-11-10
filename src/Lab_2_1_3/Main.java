@@ -5,13 +5,21 @@ import Collections.MyLinkedList;
 import Collections.MyStack;
 import Lab_2_1_3.AVLTree.TreeAVL;
 
+import java.io.IOException;
+import java.nio.file.*;
+
+
+
+
+
 public class Main {
 
 
+    public static void main(String[] args) throws Exception {
 
-    public static void main(String[] args) {
 
-        String input = "(5452(6(3(4)(5)))(7(2)(5)))";
+        String input = Files.readString(Paths.get("C:\\Users\\Admin\\IdeaProjects\\FirstJavaProject\\src\\Lab_2_1_3\\fileInput.txt"));
+
         int curIndChar = 0;
         char curChar;
         int sizeInput = input.length();
@@ -54,7 +62,7 @@ public class Main {
                     if (last.left == null) last.left = curNode;
                     else if (last.right == null) last.right = curNode;
                     else{
-                        System.out.println("It's not bin Tree");
+                        throw new Exception("It's not bin Tree");
                     }
                     stackNode.push(curNode);
 
@@ -77,10 +85,13 @@ public class Main {
         }
 
 
-        System.out.println(treeArray.toString());
-        System.out.println(treeAVL.contLevelOrder().toString());
-        System.out.println(treeAVL.contPreOrder().toString());
-
+        System.out.println("Input:\t\t\t\t" + input);
+        System.out.println("Tree:\t\t\t\t" + treeArray.toString());
+        System.out.println("AVL Tree:\t\t\t" + treeAVL.preOrder().toString());
+        System.out.println("contLevelOrder:\t\t" + treeAVL.contLevelOrder().toString());
+        System.out.println("contPreOrder:\t\t" + treeAVL.contPreOrder().toString());
+        System.out.println("contInOrder:\t\t" + treeAVL.contInOrder().toString());
+        System.out.println("contPostOrder:\t\t" + treeAVL.contPostOrder().toString());
 
     }
 }
