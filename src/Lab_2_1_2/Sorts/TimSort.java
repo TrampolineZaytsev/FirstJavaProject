@@ -5,14 +5,18 @@ import Collections.MyArrayList;
 import Collections.MyLinkedList;
 import Collections.MyList;
 import Collections.MyStack;
+import Lab_2_1_2.Lab2.utils;
 
 
 public class TimSort <T extends Comparable<T>> implements Sort<T>
 {
     private final MyList<T> arr;
+
     public TimSort (MyList<T> arr ){
         this.arr = arr;
     }
+
+
     public static int getMinRun(int n)
     {
         int r = 0;
@@ -40,29 +44,25 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     // This function sorts array from left index to
     // to right index which is of size atmost RUN
     public void binInsert(int cur, int beg, int end) {
-        while (end >= beg)
-        {
-            if (arr.get(cur).compareTo(arr.get((beg + end) / 2)) > 0)
-            {
+        while (end >= beg) {
+            if (arr.get(cur).compareTo(arr.get((beg + end) / 2)) > 0) {
                 beg = (beg + end) / 2 + 1;
             }
-            else
-            {
+            else {
                 end = (beg + end) / 2 - 1;
             }
         }
         arr.insertBack(cur, beg);
     }
-    public void insertionSort(int left, int right) {
-        for (int i = left + 1; i <= right; i++){
+    public void insertionSort(int left, int right, int curInd) {
+        for (int i = curInd; i <= right; i++){
             if (arr.get(i).compareTo(arr.get(i-1)) < 0){
                 binInsert(i, left, i-1);
             }
         }
     }
 
-    public int doGallop(MyList <T> galopList, int point, T constDataPoint)
-    {
+    int doGallop(MyList <T> galopList, int point, T constDataPoint) {
         int gallop = 1;
         int size = galopList.getSize();
         while (true) {
@@ -119,28 +119,114 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     }
 
 
+    public void reverse(int left, int right){
+        int sizeArrReverse = right- left + 1;
+        MyList<T> arrReverse = new MyArrayList<>(sizeArrReverse);
+        //boolean div2 = true;
+        T temp;
+        int limit = sizeArrReverse / 2;
+        for (int i = 0; i < limit; i++){
+            temp = arr.get(left + i);
+            arr.set(left+i, arr.get(right-i));
+            arr.set(right-i, temp);
+        }
+    }
+
+    public int tryFindRun(int curInd){
+        int temp = curInd;
+        while ((curInd+1 < arr.getSize()) && (arr.get(curInd+1).compareTo(arr.get(curInd)) > 0)){
+            curInd++;
+        }
+        if (curInd == temp){
+            while ((curInd+1 < arr.getSize()) && (arr.get(curInd+1).compareTo(arr.get(curInd)) < 0)){
+                curInd++;
+            }
+            reverse(temp, curInd);
+        }
+
+        return curInd;
+    }
+
 
     public void sort() {
         int size = arr.getSize();
         int minRun = getMinRun(arr.getSize());
-        MyStack<Run> steckRun = new MyLinkedList<>();
-        Run curRun = null, lastRun = null;
+        MyStack<Run> stackRun = new MyLinkedList<>();
+        Run X = null, Y = null, Z = null;
 
-        for (int begRun = 0; begRun < size; begRun += minRun) {
+
+        int curInd = 0, begRun = 0, endRun = 0;
+        while (curInd < size){
+            //get sorted run
+            begRun = curInd;
+            curInd = tryFindRun(curInd);
+            if (curInd - begRun + 1 < minRun){
+                endRun = Math.min((begRun + minRun - 1), (size - 1));
+                insertionSort(begRun, endRun, curInd+1);
+                curInd = endRun;
+            }
+
+            //merge run
+            X = new Run(begRun, (++curInd - begRun));
+            if(!stackRun.isEmpty()){
+                Y = stackRun.pop();
+                if(!stackRun.isEmpty()){
+                    Z = stackRun.pop();
+                    if (Z.size > X.size + Y.size){
+
+                    }
+                }
+
+                //X and Y without Z
+                else{
+                    if(X.size >= Y.size){
+                        merge(Y, X);
+                        stackRun.push(X);
+                    }
+                    else{
+                        stackRun.push(Y);
+                        stackRun.push(X);
+                    }
+                }
+            }
+            else stackRun.push(X);
+
+        }
+
+
+
+
+
+        /*for (int begRun = 0; begRun < size; begRun += minRun) {
 
             //sorted subsequentes (сорт. подпоследовательности)
             int endRun = Math.min((begRun + minRun - 1), (size - 1));
-            insertionSort(begRun, endRun);
+            insertionSort(begRun, endRun, begRun+1);
 
             //merge run
-            curRun = new Run(begRun, endRun - begRun + 1);
-            while (!steckRun.isEmpty() && ((steckRun.peek().size == curRun.size) || (endRun == size-1))) {
+            X = new Run(begRun, endRun - begRun + 1);
+            while (!steckRun.isEmpty() && ((steckRun.peek().size == X.size) || (endRun == size-1))) {
                 lastRun = steckRun.pop();
-                merge(lastRun, curRun);
+                merge(lastRun, X);
             }
-            steckRun.push(curRun);
-        }
+            steckRun.push(X);
+        }*/
     }
+
+    /*public static void main(String args[]) {
+        MyArrayList<Integer> list = new MyArrayList<>();
+        utils.randomArr(list, 300);
+        for (int i = 0; i < 100; i++){
+            list.add(i);
+        }
+
+        TimSort<Integer> sir = new TimSort<>(list);
+        utils.timeSort(sir);
+        System.out.println(getMinRun(400));
+        System.out.println(list.toString());
+
+    }*/
+
 }
 
 // This code has been contributed by 29AjayKumar

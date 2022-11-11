@@ -29,7 +29,7 @@ public class Main {
                 else sortingList = new InsertionSort<>(willSortList);
 
                 //add time sorts
-                if (i == 2 && l >= 1000000)
+                if (i == 2 && l >= 1000)
                     dataForGraph.get(i).set(choiceLen, (long) l);
 
                 else
