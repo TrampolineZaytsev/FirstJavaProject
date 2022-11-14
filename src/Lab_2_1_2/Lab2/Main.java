@@ -42,9 +42,10 @@ public class Main {
 
 
 
-        for (int i = 0; i < 3; i++){
-            System.out.println(dataForGraph.get(i).toString());
-        }
+
+        System.out.println("TimSort\t\t\t" + dataForGraph.get(0).toString());
+        System.out.println("MergeSort\t\t" + dataForGraph.get(1).toString());
+        System.out.println("InsertSort\t\t" + dataForGraph.get(2).toString());
 
         //System.out.println(timSortTime);
         //System.out.println(timSortArr.toString());
