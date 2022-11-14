@@ -29,12 +29,9 @@ public class Main {
                 else sortingList = new InsertionSort<>(willSortList);
 
                 //add time sorts
-                if (i == 2 && l >= 1000)
+                if (i == 2 && l >= 100000)
                     dataForGraph.get(i).set(choiceLen, (long) l);
-
                 else
-                    //dataForGraph[i][choiceLen]  = utils.timeSort(sortingList);
-                    //dataForGraph.get(i).set(choiceLen, utils.timeSort(sortingList));
                     dataForGraph.get(i).set(choiceLen, utils.timeSort(sortingList));
             }
 
