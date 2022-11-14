@@ -17,7 +17,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     }
 
 
-    public static int getMinRun(int n)
+    private static int getMinRun(int n)
     {
         int r = 0;
         while (n >= 64)
@@ -30,7 +30,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
 
 
 
-    public static class Run {
+    private static class Run {
         int index;
         int size;
 
@@ -43,7 +43,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
 
     // This function sorts array from left index to
     // to right index which is of size atmost RUN
-    public void binInsert(int cur, int beg, int end) {
+    private void binInsert(int cur, int beg, int end) {
         while (end >= beg) {
             if (arr.get(cur).compareTo(arr.get((beg + end) / 2)) > 0) {
                 beg = (beg + end) / 2 + 1;
@@ -54,7 +54,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
         arr.insertBack(cur, beg);
     }
-    public void insertionSort(int left, int right, int curInd) {
+    private void insertionSort(int left, int right, int curInd) {
         for (int i = curInd; i <= right; i++){
             if (arr.get(i).compareTo(arr.get(i-1)) < 0){
                 binInsert(i, left, i-1);
@@ -62,7 +62,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
     }
 
-    int doGallop(MyList <T> galopList, int point, T constDataPoint) {
+    private int doGallop(MyList <T> galopList, int point, T constDataPoint) {
         int gallop = 1;
         int size = galopList.getSize();
         while (true) {
@@ -80,7 +80,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     }
 
     // Merge function merges the sorted runs
-    public void merge(Run left, Run right) {
+    private void merge(Run left, Run right) {
 
         //copy left, right subarr
         MyList<T> leftList = new MyArrayList<>();
@@ -119,7 +119,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
     }
 
 
-    public void reverse(int left, int right){
+    private void reverse(int left, int right){
         int sizeArrReverse = right- left + 1;
         MyList<T> arrReverse = new MyArrayList<>(sizeArrReverse);
         //boolean div2 = true;
@@ -132,7 +132,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
     }
 
-    public int tryFindRun(int curInd){
+    private int tryFindRun(int curInd){
         int temp = curInd;
         while ((curInd+1 < arr.getSize()) && (arr.get(curInd+1).compareTo(arr.get(curInd)) > 0)){
             curInd++;
@@ -147,6 +147,73 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         return curInd;
     }
 
+
+    private void mergeTop(MyStack<Run> stack) {
+
+        while (stack.getSize() > 1) {
+            Run X = stack.pop();
+
+            Run Y = stack.pop();
+
+
+            if (stack.getSize() > 0) {
+
+                Run Z = stack.pop();
+                if (Z.size <= Y.size + X.size) {
+                    if (Z.size < X.size) {
+                        merge(Z, Y);
+                        stack.push(Y);
+                        stack.push(X);
+                    } else {
+                        merge(Y, X);
+                        stack.push(Z);
+                        stack.push(X);
+                    }
+                } else if (Y.size <= X.size) {
+                    merge(Y, X);
+                    stack.push(Z);
+                    stack.push(X);
+                } else {
+                    stack.push(Z);
+                    stack.push(Y);
+                    stack.push(X);
+                    break;
+                }
+            } else if (Y.size <= X.size) {
+                merge(Y, X);
+                stack.push(X);
+            } else {
+                stack.push(Y);
+                stack.push(X);
+                break;
+            }
+        }
+    }
+
+    private void mergeAll(MyStack<Run> stack){
+
+        while (stack.getSize() > 1) {
+            Run X = stack.pop();
+            Run Y = stack.pop();
+
+            if (stack.getSize() > 0) {
+                Run Z = stack.pop();
+                if (Z.size < X.size) {
+                    merge(Z, Y);
+                    stack.push(Y);
+                    stack.push(X);
+                }
+                else {
+                    merge(Y, X);
+                    stack.push(Z);
+                    stack.push(X);
+                }
+            }
+            else {
+                merge(Y, X);
+            }
+        }
+    }
 
     public void sort() {
         int size = arr.getSize();
@@ -166,35 +233,11 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
                 curInd = endRun;
             }
 
-            //merge run
             X = new Run(begRun, (++curInd - begRun));
-            if(!stackRun.isEmpty()){
-                Y = stackRun.pop();
-                if(!stackRun.isEmpty()){
-                    Z = stackRun.pop();
-                    if (Z.size > X.size + Y.size){
-
-                    }
-                }
-
-                //X and Y without Z
-                else{
-                    if(X.size >= Y.size){
-                        merge(Y, X);
-                        stackRun.push(X);
-                    }
-                    else{
-                        stackRun.push(Y);
-                        stackRun.push(X);
-                    }
-                }
-            }
-            else stackRun.push(X);
-
+            stackRun.push(X);
+            mergeTop(stackRun);
         }
-
-
-
+        mergeAll(stackRun);
 
 
         /*for (int begRun = 0; begRun < size; begRun += minRun) {
@@ -215,18 +258,16 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
 
     /*public static void main(String args[]) {
         MyArrayList<Integer> list = new MyArrayList<>();
-        utils.randomArr(list, 300);
+        utils.randomArr(list, 1000);
         for (int i = 0; i < 100; i++){
             list.add(i);
         }
-
         TimSort<Integer> sir = new TimSort<>(list);
         utils.timeSort(sir);
-        System.out.println(getMinRun(400));
         System.out.println(list.toString());
-
     }*/
 
 }
+
 
 // This code has been contributed by 29AjayKumar

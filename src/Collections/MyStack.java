@@ -9,5 +9,9 @@ public interface MyStack<T>{
 
     boolean isEmpty();
 
+    int getSize();
+
+
+
     //void copy(MyLinkedList<T> copyList);
 }
