@@ -44,11 +44,6 @@ public class Main {
         System.out.println("MergeSort\t\t" + dataForGraph.get(1).toString());
         System.out.println("InsertSort\t\t" + dataForGraph.get(2).toString());
 
-        //System.out.println(timSortTime);
-        //System.out.println(timSortArr.toString());
-
-
-
 
     }
 }

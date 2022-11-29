@@ -16,9 +16,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         this.arr = arr;
     }
 
-
-    private static int getMinRun(int n)
-    {
+    private static int getMinRun(int n) {
         int r = 0;
         while (n >= 64)
         {
@@ -27,8 +25,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
         return n + r;
     }
-
-
 
     private static class Run {
         int index;
@@ -41,8 +37,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
 
     }
 
-    // This function sorts array from left index to
-    // to right index which is of size atmost RUN
     private void binInsert(int cur, int beg, int end) {
         while (end >= beg) {
             if (arr.get(cur).compareTo(arr.get((beg + end) / 2)) > 0) {
@@ -54,6 +48,7 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
         arr.insertBack(cur, beg);
     }
+
     private void insertionSort(int left, int right, int curInd) {
         for (int i = curInd; i <= right; i++){
             if (arr.get(i).compareTo(arr.get(i-1)) < 0){
@@ -79,7 +74,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         }
     }
 
-    // Merge function merges the sorted runs
     private void merge(Run left, Run right) {
 
         //copy left, right subarr
@@ -118,7 +112,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         //mylist.view();
     }
 
-
     private void reverse(int left, int right){
         int sizeArrReverse = right- left + 1;
         MyList<T> arrReverse = new MyArrayList<>(sizeArrReverse);
@@ -146,7 +139,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
 
         return curInd;
     }
-
 
     private void mergeTop(MyStack<Run> stack) {
 
@@ -240,21 +232,10 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         mergeAll(stackRun);
 
 
-        /*for (int begRun = 0; begRun < size; begRun += minRun) {
 
-            //sorted subsequentes (сорт. подпоследовательности)
-            int endRun = Math.min((begRun + minRun - 1), (size - 1));
-            insertionSort(begRun, endRun, begRun+1);
-
-            //merge run
-            X = new Run(begRun, endRun - begRun + 1);
-            while (!steckRun.isEmpty() && ((steckRun.peek().size == X.size) || (endRun == size-1))) {
-                lastRun = steckRun.pop();
-                merge(lastRun, X);
-            }
-            steckRun.push(X);
-        }*/
     }
+
+
 
     /*public static void main(String args[]) {
         MyArrayList<Integer> list = new MyArrayList<>();
@@ -266,7 +247,6 @@ public class TimSort <T extends Comparable<T>> implements Sort<T>
         utils.timeSort(sir);
         System.out.println(list.toString());
     }*/
-
 }
 
 

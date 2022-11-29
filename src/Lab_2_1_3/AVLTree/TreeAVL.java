@@ -98,6 +98,7 @@ public class TreeAVL <T extends Comparable<T>>{
         if (key.compareTo(p.key) > 0){
             p.right = remove(p.right, key);
         }
+
         else{
             NodeAVL<T> left = p.left;
             NodeAVL<T> right = p.right;
@@ -195,6 +196,7 @@ public class TreeAVL <T extends Comparable<T>>{
 
         return list;
     }
+
 
     private void doPreOrder(NodeAVL<T> cur,  MyArrayList<T> list) {
         if (cur == null)
