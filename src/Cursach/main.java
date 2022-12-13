@@ -24,20 +24,13 @@ public class main {
         Sort<Edge> sortingList = new MergeSort<>(edges);
         sortingList.sort();
 
-        /*for (int i = 0; i < edges.getSize(); i++){
-            System.out.print(edges.get(i).weight);
-            System.out.print(" ");
-            System.out.print(edges.get(i).start);
-            System.out.print(" ");
-            System.out.print(edges.get(i).end);
-            System.out.println(" ");
-        }*/
+
 
 
         MyList<Integer> unitedVertex = new MyLinkedList<>(); // U
         MyList<MyList> isolatedGroup = utils.creat2DArr(numberVertex); //D
         MyList<Edge> edgesOfMST = new MyLinkedList<>(); //T
-
+        int sumWeight = 0;
         for (int i = 0; i < edges.getSize(); i++) {
             int start = edges.get(i).start;
             int end = edges.get(i).end;
@@ -67,7 +60,12 @@ public class main {
                     }
                 }
 
-                edgesOfMST.add(edges.get(i));
+
+                int weight = edges.get(i).weight;
+                sumWeight += weight;
+                Edge tempEdge = new Edge(start, end, weight);
+                edgesOfMST.add(tempEdge);
+
                 if (!unitedVertex.contains(start)) unitedVertex.add(start);
                 if (!unitedVertex.contains(end)) unitedVertex.add(end);
             }
@@ -81,7 +79,10 @@ public class main {
             int end = edges.get(i).end;
 
             if (isolatedGroup.get(start).contains(start) && !isolatedGroup.get(start).contains(end)) {
-                edgesOfMST.add(edges.get(i));
+                int weight = edges.get(i).weight;
+                sumWeight += weight;
+                Edge tempEdge = new Edge(start, end, weight);
+                edgesOfMST.add(tempEdge);
                 int sizeStart = isolatedGroup.get(start).getSize();
                 MyList temp = new MyArrayList();
 
@@ -102,15 +103,17 @@ public class main {
         }
 
 
+        sortingList = new MergeSort<>(edgesOfMST);
+        sortingList.sort();
 
+        System.out.println();
         for (int i = 0; i < edgesOfMST.getSize(); i++){
-            System.out.print(edgesOfMST.get(i).weight);
+            System.out.print((char) (97 + edgesOfMST.get(i).weight));
             System.out.print(" ");
-            System.out.print(edgesOfMST.get(i).start);
-            System.out.print(" ");
-            System.out.print(edgesOfMST.get(i).end);
+            System.out.print((char) (97 + edgesOfMST.get(i).start));
             System.out.println(" ");
         }
+        System.out.println(sumWeight);
 
 
 
