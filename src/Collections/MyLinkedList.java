@@ -178,9 +178,8 @@ public class MyLinkedList<T> implements MyList<T>, MyStack<T>, MyQueue<T> {
         throw new IndexOutOfBoundsException(index);
     }
 
-    public boolean contains(Object o) {
-        return indexOf(o) != -1;
-    }
+
+    public boolean contains(Object o) { return indexOf(o) != -1; }
 
     public int indexOf(Object o) {
         int currIdx = 0;
